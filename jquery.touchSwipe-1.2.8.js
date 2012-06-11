@@ -207,12 +207,13 @@
 			*/
 			function touchMove(event)
 			{
-				if(MOVE_EV === 'mousemove')
-					moveEvent = event;
 				
 				if (phase == PHASE_END || phase == PHASE_CANCEL)
 					return;
                 
+				if(MOVE_EV === 'mousemove')
+					moveEvent = event;
+				
                 var ret, evt = SUPPORTS_TOUCH ? event.touches[0] : event; 
 				
 				end.x = evt.pageX;
@@ -305,7 +306,7 @@
 					triggerHandler(event, phase); 
 					touchCancel(event);
 				}
-				if (MOVE_EV === 'mousemove')
+				if (MOVE_EV === 'mousemove' && moveEvent)
 					$(window).off(moveEvent);
 				else
 					that.removeEventListener(MOVE_EV, touchMove, false);
